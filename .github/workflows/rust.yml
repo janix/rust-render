@@ -38,11 +38,6 @@ jobs:
           - os: ubuntu-latest
           - os: macos-latest
           - os: windows-latest
-    env:
-      ${{ if eq( matrix.config.os, 'windows-latest') }}:
-        built_file: "target/release/rust-render.exe"
-      ${{ else }}:
-        built_file: 'target/release/rust-render'
 
     steps:
     - uses: actions/checkout@v3
@@ -50,6 +45,12 @@ jobs:
       run: cargo build --release
     - name: Run tests
       run: cargo test --verbose
+    - name: set binary file variables
+      env:
+        name: built_file
+          ${{ if eq( matrix.config.os, 'windows-latest') }}:
+            built_file: "target/release/rust-render.exe"
+          ${{ else }}: 'target/release/rust-render'
     - name: Upload release assets
       uses: actions/upload-release-asset@v1
       env:
