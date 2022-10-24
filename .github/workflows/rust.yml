@@ -22,3 +22,5 @@ jobs:
 #      run: cargo test --verbose
     - name: cargo run
       run: cargo run
+    - name: show files
+      run: tree
