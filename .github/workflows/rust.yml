@@ -41,7 +41,7 @@ jobs:
           - os: windows-latest
     env:
       built_file: 'target/release/rust-render'
-      if: ${{ eq(variables['matrix.config.os'], 'windows-latest') }}
+      if: ${{ matrix.config.os }} == 'windows-latest'
         built_file = 'target/release/rust-render.exe'
 
     steps:
