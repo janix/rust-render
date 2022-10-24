@@ -47,7 +47,7 @@ jobs:
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       with:
-        upload_url: "${{ steps.auto_release.outputs.upload_url }}"
-        asset_name: "rust-render-${{ matrix.config.os.short_name }}"
-        asset_path: "${{ matrix.config.os.built_file }}"
+        upload_url: ${{ steps.auto_release.outputs.upload_url }}
+        asset_name: rust-render-${{ matrix.config.os.short_name }}
+        asset_path: ${{ matrix.config.os.built_file }}
         asset_content_type: application/octet-stream
