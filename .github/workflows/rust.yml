@@ -33,6 +33,7 @@ jobs:
     - name: Upload release assets
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
+        automatic_release_tag: "latest"
         prerelease: true
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         files: ${{ matrix.config.os.built_file }}
