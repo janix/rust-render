@@ -18,10 +18,13 @@ jobs:
       matrix:
         config:
           - os: ubuntu-latest
+            short_name: "linux"
             built_file: "target/release/rust-render"
           - os: macos-latest
+            short_name: "mac"
             built_file: "target/release/rust-render"
           - os: windows-latest
+            short_name: "win"
             built_file: "target/release/rust-render.exe"
 
     steps:
@@ -30,11 +33,21 @@ jobs:
       run: cargo build --release
     - name: Run tests
       run: cargo test --verbose
-    - name: Upload release assets
+    - name: Running automatic release
+      id: auto_release
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         automatic_release_tag: "latest"
         prerelease: true
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         files: "${{ matrix.config.os.built_file }}"
-        upload_url: "https://github.com/janix/rust-render/archive/refs/tags/${{ matrix.config.os }}"
+
+    - name: Upload release assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      with:
+        upload_url: "${{ steps.auto_release.outputs.upload_url }}"
+        asset_name: "rust-render-${{ matrix.config.os.short_name }}"
+        asset_path: "${{ matrix.config.os.built_file }}"
+        asset_content_type: application/octet-stream
