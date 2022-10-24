@@ -28,6 +28,8 @@ jobs:
             built_file: "target/release/rust-render.exe"
 
     steps:
+    - name: Check matrix variables
+      run: echo ${{ matrix.config.os }} ${{ matrix.config.os.built_file }} ${{ matrix.config.os.short_name }}
     - uses: actions/checkout@v3
     - name: Build
       run: cargo build --release
