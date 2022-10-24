@@ -9,6 +9,13 @@ on:
 env:
   CARGO_TERM_COLOR: always
 
+if: ${{ matrix.config.os }} == 'windows-latest'
+- env:
+  built_file: 'target/release/rust-render.exe'
+if: ${{ matrix.config.os }} != 'windows-latest'
+      env:
+        built_file: 'target/release/rust-render'
+
 jobs:
   create_release:
     name: Create release
@@ -27,13 +34,6 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-
-    - if: ${{ matrix.config.os }} == 'windows-latest'
-      env:
-        built_file: 'target/release/rust-render.exe'
-    - if: ${{ matrix.config.os }} != 'windows-latest'
-      env:
-        built_file: 'target/release/rust-render'
 
   release_assets:
     name: Release assets
