@@ -13,16 +13,16 @@ env:
 jobs:
   automatic_release:
     name: Automatic Release
-    runs-on: ${{ matrix.config.os }} 
+    runs-on: "${{ matrix.config.os }}"
     strategy:
       matrix:
         config:
           - os: ubuntu-latest
-            built_file: 'target/release/rust-render'
+            built_file: "target/release/rust-render"
           - os: macos-latest
-            built_file: 'target/release/rust-render'
+            built_file: "target/release/rust-render"
           - os: windows-latest
-            built_file: 'target/release/rust-render.exe'
+            built_file: "target/release/rust-render.exe"
 
     steps:
     - uses: actions/checkout@v3
@@ -36,4 +36,5 @@ jobs:
         automatic_release_tag: "latest"
         prerelease: true
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        files: ${{ matrix.config.os.built_file }}
+        files: "${{ matrix.config.os.built_file }}"
+        upload_url: "https://github.com/janix/rust-render/archive/refs/tags/${{ matrix.config.os }}"
