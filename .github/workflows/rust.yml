@@ -39,11 +39,13 @@ jobs:
           - os: ubuntu-latest
           - os: macos-latest
           - os: windows-latest
-    env:
-      built_file: target/release/rust-render
-      if: ${{ matrix.config.os }} == 'windows-latest'
-        built_file: target/release/rust-render.exe
     
+      - if:
+      ${{ matrix.config.os }} == 'windows-latest'
+      env:
+        built_file: 'target/release/rust-render.exe'
+    if: 
+      
     steps:
     - uses: actions/checkout@v3
     - name: Build
@@ -62,7 +64,7 @@ jobs:
         # target triple.
         asset_name: rust-render-${{ matrix.config.os }}
         # The path to the file you want to upload.
-        asset_path: ${{ built_file }}
+        asset_path: ${{ env.built_file }}
         # probably you will need to change it, but most likely you are
         # uploading a binary file
         asset_content_type: application/octet-stream
