@@ -18,21 +18,21 @@ jobs:
       matrix:
         config:
           - os: ubuntu-latest
-            include: 
+            parameters: 
             - short_name: 'linux'
             - built_file: 'target/release/rust-render'
           - os: macos-latest
-            include:
+            parameters:
             - short_name: 'mac'
             - built_file: 'target/release/rust-render'
           - os: windows-latest
-            include:
+            parameters:
             - short_name: 'win'
             - built_file: 'target/release/rust-render.exe'
 
     steps:
     - name: Check matrix variables
-      run: echo ${{ matrix.config.os.built_file }} ${{ matrix.config.os.short_name }}
+      run: echo ${{ matrix.config.os.parameters.built_file }} ${{ matrix.config.os.parameters.short_name }}
     - uses: actions/checkout@v3
     - name: Build
       run: cargo build --release
@@ -45,7 +45,7 @@ jobs:
         automatic_release_tag: "latest"
         prerelease: true
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        files: "${{ matrix.config.os.built_file }}"
+        files: "${{ matrix.config.os.parameters.built_file }}"
 
     - name: Upload release assets
       uses: actions/upload-release-asset@v1
@@ -53,6 +53,6 @@ jobs:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       with:
         upload_url: ${{ steps.auto_release.outputs.upload_url }}
-        asset_name: rust-render-${{ matrix.config.os.short_name }}
-        asset_path: ${{ matrix.config.os.built_file }}
+        asset_name: rust-render-${{ matrix.config.os.parameters.short_name }}
+        asset_path: ${{ matrix.config.os.parameters.built_file }}
         asset_content_type: application/octet-stream
