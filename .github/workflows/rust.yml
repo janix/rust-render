@@ -18,14 +18,17 @@ jobs:
       matrix:
         config:
           - os: ubuntu-latest
-            short_name: 'linux'
-            built_file: 'target/release/rust-render'
+            include: 
+            - short_name: 'linux'
+            - built_file: 'target/release/rust-render'
           - os: macos-latest
-            short_name: 'mac'
-            built_file: 'target/release/rust-render'
+            include:
+            - short_name: 'mac'
+            - built_file: 'target/release/rust-render'
           - os: windows-latest
-            short_name: 'win'
-            built_file: 'target/release/rust-render.exe'
+            include:
+            - short_name: 'win'
+            - built_file: 'target/release/rust-render.exe'
 
     steps:
     - name: Check matrix variables
