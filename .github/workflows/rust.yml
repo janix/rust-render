@@ -79,6 +79,3 @@ jobs:
         title: "Development Build"
         files: |
           target/release/rust-render
-
-
-  
