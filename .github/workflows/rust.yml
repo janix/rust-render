@@ -37,8 +37,8 @@ jobs:
       run: cargo build --release
     - name: Run tests
       run: cargo test --verbose
-#    - name: cargo run
-#      run: cargo run
+    - name: cargo run
+      run: cargo run
     - name: show files
       run: tree
     - uses: actions/upload-artifact@v2
@@ -57,7 +57,7 @@ jobs:
 #    - name: cargo run
 #      run: cargo run
     - name: show files
-      run: tree
+      run: ls -lahG target/release
     - uses: actions/upload-artifact@v2
       with:
         name: MacOS
