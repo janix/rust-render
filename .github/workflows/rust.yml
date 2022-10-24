@@ -10,72 +10,37 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  Linux-build:
-
-    runs-on: ubuntu-latest
-
+  release_assets:
+    name: Release assets
+    needs: create_release # we need to know the upload URL
+    runs-on: ${{ matrix.config.os }} # we run many different builds
+    strategy:
+      # just an example matrix
+      matrix:
+        config:
+          - os: ubuntu-latest
+          - os: macos-latest
+          - os: windows-latest
     steps:
     - uses: actions/checkout@v3
     - name: Build
       run: cargo build --release
     - name: Run tests
       run: cargo test --verbose
-#    - name: cargo run
-#      run: cargo run
-    - name: show files
-      run: tree
-#    - uses: actions/upload-artifact@v2
-#      with:
-#        name: Ubuntu-x64
-#        path: target/release/rust-render
-    - uses: "marvinpinto/action-automatic-releases@latest"
+    - name: Upload release assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
-        prerelease: true
-        title: "Development Build"
-        files: |
-          target/release/rust-render
+        upload_url: ${{ needs.create_release.outputs.upload_url }}
+        # This is how it will be named on the release page. Put hatever name
+        # you like, remember that they need to be different for each platform.
+        # You can choose any build matrix parameters. For Rust I use the
+        # target triple.
+        asset_name: rust-render-${{ matrix.config.os }}
+        # The path to the file you want to upload.
+        asset_path: target/release/rust-render
+        # probably you will need to change it, but most likely you are
+        # uploading a binary file
+        asset_content_type: application/octet-stream
         
-        
-  Windows-build:
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Build
-      run: cargo build --release
-    - name: Run tests
-      run: cargo test --verbose
-#    - name: cargo run
-#      run: cargo run
-    - name: show files
-      run: tree
-    - uses: "marvinpinto/action-automatic-releases@latest"
-      with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
-        prerelease: true
-        title: "Development Build"
-        files: |
-          target/release/rust-render.exe
-        
-  Macos-build:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Build
-      run: cargo build --release
-    - name: Run tests
-      run: cargo test --verbose
-#    - name: cargo run
-#      run: cargo run
-    - name: show files
-      run: ls -lahG target/release
-    - uses: "marvinpinto/action-automatic-releases@latest"
-      with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
-        prerelease: true
-        title: "Development Build"
-        files: |
-          target/release/rust-render
