@@ -37,14 +37,14 @@ jobs:
       run: cargo build --release
     - name: Run tests
       run: cargo test --verbose
-    - name: cargo run
-      run: cargo run
+#    - name: cargo run
+#      run: cargo run
     - name: show files
       run: tree
     - uses: actions/upload-artifact@v2
       with:
         name: Windows
-        path: target/release/rust-renderer.exe
+        path: target/release/rust-render.exe
         
   Macos-build:
     runs-on: macos-latest
@@ -61,4 +61,4 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: MacOS
-        path: target/release/rust-renderer
+        path: target/release/rust-render
