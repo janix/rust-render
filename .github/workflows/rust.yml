@@ -9,13 +9,6 @@ on:
 env:
   CARGO_TERM_COLOR: always
 
-if: ${{ matrix.config.os }} == 'windows-latest'
-- env:
-  built_file: 'target/release/rust-render.exe'
-if: ${{ matrix.config.os }} != 'windows-latest'
-      env:
-        built_file: 'target/release/rust-render'
-
 jobs:
   create_release:
     name: Create release
@@ -46,6 +39,12 @@ jobs:
           - os: ubuntu-latest
           - os: macos-latest
           - os: windows-latest
+
+    ${{ if eq(variables['matrix.config.os'], 'windows-latest') }}:
+      built_file: 'target/release/rust-render.exe'
+    ${{ if ne(matrix.config.os, 'windows-latest') }}:
+      built_file: 'target/release/rust-render'
+
     steps:
     - uses: actions/checkout@v3
     - name: Build
