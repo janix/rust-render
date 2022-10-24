@@ -47,10 +47,8 @@ jobs:
       run: cargo test --verbose
     - name: set binary file variables
       env:
-        name: built_file
-          ${{ if eq( matrix.config.os, 'windows-latest') }}:
-            built_file: "target/release/rust-render.exe"
-          ${{ else }}: 'target/release/rust-render'
+        ${{ if eq( matrix.config.os, 'windows-latest') }}: "target/release/rust-render.exe"
+        ${{ else }}: 'target/release/rust-render'
     - name: Upload release assets
       uses: actions/upload-release-asset@v1
       env:
@@ -58,5 +56,5 @@ jobs:
       with:
         # upload_url: ${{ needs.create_release.outputs.upload_url }}
         asset_name: rust-render-${{ matrix.config.os }}
-        asset_path: ${{ env.built_file }}
+        asset_path: ${{ env }}
         asset_content_type: application/octet-stream
