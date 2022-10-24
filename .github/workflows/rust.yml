@@ -27,7 +27,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: Ubuntu-x64
-        path: target/release/rust-renderer
+        path: target/release/rust-render
         
   Windows-build:
     runs-on: windows-latest
