@@ -39,8 +39,8 @@ jobs:
           - os: ubuntu-latest
           - os: macos-latest
           - os: windows-latest
-    - if: ${{ matrix.config.os }} == 'windows-latest'
-      built_file: target/release/rust-render.exe
+#    - if: ${{ matrix.config.os }} == 'windows-latest'
+#      built_file: target/release/rust-render.exe
     built_file: target/release/rust-render
     steps:
     - uses: actions/checkout@v3
