@@ -27,7 +27,7 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-          
+
   release_assets:
     name: Release assets
     needs: create_release
@@ -57,6 +57,8 @@ jobs:
         # target triple.
         asset_name: rust-render-${{ matrix.config.os }}
         # The path to the file you want to upload.
+        - if: ${{ matrix.config.os }} == windows-latest
+          asset_path: /target/release/rust-render.exe
         asset_path: target/release/rust-render
         # probably you will need to change it, but most likely you are
         # uploading a binary file
