@@ -6,31 +6,13 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+    
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  create_release:
-    name: Create release
-    runs-on: ubuntu-latest
-    outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
-    steps:
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: latest
-          release_name: Release latest
-          draft: false
-          prerelease: false
-
-  release_assets:
-    name: Release assets
-#    needs: create_release
+  automatic_release:
+    name: Automatic Release
     runs-on: ${{ matrix.config.os }} 
     strategy:
       matrix:
@@ -49,11 +31,7 @@ jobs:
     - name: Run tests
       run: cargo test --verbose
     - name: Upload release assets
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        # upload_url: ${{ needs.create_release.outputs.upload_url }}
-        asset_name: rust-render-${{ matrix.config.os }}
-        asset_path: ${{ matrix.config.os.built_file }}
-        asset_content_type: application/octet-stream
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        files: ${{ matrix.config.os.built_file }}
