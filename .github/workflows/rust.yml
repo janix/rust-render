@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Bump version and push tag
+      id: tag_step
       uses: anothrNick/github-tag-action@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -25,7 +26,7 @@ jobs:
       id: auto_step
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        # automatic_release_tag: #
+        automatic_release_tag: ${{ steps.tag_step.outputs.new_tag }}
         prerelease: false
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
     outputs:
