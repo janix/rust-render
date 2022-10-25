@@ -26,16 +26,19 @@ jobs:
     strategy:
       matrix:
         config:
-        - os: ubuntu-latest
+        - os:
+          name: ubuntu-latest
           short_name: "linux"
           built_file: "target/release/rust-render"
-        - os: macos-latest
+        - os: 
+          name: macos-latest
           short_name: "mac"
           built_file: "target/release/rust-render"
-        - os: windows-latest
+        - os:
+          name: windows-latest
           short_name: "win"
           built_file: "target/release/rust-render.exe"
-    runs-on: ${{ matrix.config.os }}
+    runs-on: ${{ matrix.config.os.name }}
 
     steps:
     - name: Check matrix variables
