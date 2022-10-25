@@ -26,23 +26,20 @@ jobs:
     strategy:
       matrix:
         config:
-        - os:
-            name: ubuntu-latest
-            short_name: "linux"
-            built_file: "target/release/rust-render"
-        - os:
-            name: macos-latest
-            short_name: "mac"
-            built_file: "target/release/rust-render"
-        - os:
-            name: windows-latest
-            short_name: "win"
-            built_file: "target/release/rust-render.exe"
-    runs-on: ${{ matrix.config.os.name }}
+        - os: ubuntu-latest
+          short_name: "linux"
+          built_file: "target/release/rust-render"
+        - os: macos-latest
+          short_name: "mac"
+          built_file: "target/release/rust-render"
+        - os: windows-latest
+          short_name: "win"
+          built_file: "target/release/rust-render.exe"
+    runs-on: ${{ matrix.config.os }}
 
     steps:
     - name: Check matrix variables
-      run: echo ${{ matrix.config.os.name }} ${{ matrix.config.os.built_file }} ${{ matrix.config.os.short_name }}
+      run: echo ${{ matrix.config.os }} ${{ matrix.config.os.built_file }} ${{ matrix.config.os.short_name }}
     - uses: actions/checkout@v3
     - name: Build
       run: cargo build --release
