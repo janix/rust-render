@@ -22,7 +22,7 @@ jobs:
         prerelease: true
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
     outputs:
-      upload_url: steps.auto_step.outputs.upload_url
+      upload_url: ${{ steps.auto_step.outputs.upload_url }}
 
   uploading_files:
     name: Building and uploading files
