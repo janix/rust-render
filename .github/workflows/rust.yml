@@ -23,6 +23,7 @@ jobs:
 
   uploading_files:
     name: Building and uploading files
+    needs: auto_release
     strategy:
       matrix:
         config:
@@ -54,7 +55,7 @@ jobs:
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       with:
-        upload_url: ${{ job.auto_release.outputs.upload_url }}
+        upload_url: ${{ needs.auto_release.outputs.upload_url }}
         asset_name: rust-render-${{ matrix.config.os.short_name }}
         asset_path: ${{ matrix.config.os.built_file }}
         asset_content_type: application/octet-stream
