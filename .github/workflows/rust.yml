@@ -45,8 +45,6 @@ jobs:
     runs-on: ${{ matrix.config.os.name }}
 
     steps:
-    - name: Check matrix variables
-      run: echo ${{ needs.auto_release.outputs.upload_url }}
     - name: Checkout
       uses: actions/checkout@v3
     - name: Build
