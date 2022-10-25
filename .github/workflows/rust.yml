@@ -27,17 +27,17 @@ jobs:
       matrix:
         config:
         - os:
-          name: ubuntu-latest
-          short_name: "linux"
-          built_file: "target/release/rust-render"
+            name: ubuntu-latest
+            short_name: "linux"
+            built_file: "target/release/rust-render"
         - os: 
-          name: macos-latest
-          short_name: "mac"
-          built_file: "target/release/rust-render"
+            name: macos-latest
+            short_name: "mac"
+            built_file: "target/release/rust-render"
         - os:
-          name: windows-latest
-          short_name: "win"
-          built_file: "target/release/rust-render.exe"
+            name: windows-latest
+            short_name: "win"
+            built_file: "target/release/rust-render.exe"
     runs-on: ${{ matrix.config.os.name }}
 
     steps:
