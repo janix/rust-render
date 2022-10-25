@@ -3,11 +3,11 @@ name: Rust
 
 on:
   push:
-    branches: [ "main" ]
-    tags:
-      - "v*"
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
     
 env:
   CARGO_TERM_COLOR: always
@@ -16,6 +16,11 @@ jobs:
   auto_release:
     runs-on: ubuntu-latest
     steps:
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        WITH_V: true
     - name: Create auto release
       id: auto_step
       uses: "marvinpinto/action-automatic-releases@latest"
