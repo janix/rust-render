@@ -15,18 +15,19 @@ jobs:
     name: Automatic Release
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        built_file: ["target/release/rust-render"]
-        include:
-        - os: ubuntu-latest
-          short_name: "linux"
-        - os: macos-latest
-          short_name: "mac"
-        - os: windows-latest
-          short_name: "win"
-          built_file: "target/release/rust-render.exe"
+        os:
+        - ubuntu-latest:
+            short_name: "linux"
+            built_file: "target/release/rust-render"
+        - macos-latest:
+            short_name: "mac"
+            built_file: "target/release/rust-render"
+        - windows-latest:
+            short_name: "win"
+            built_file: "target/release/rust-render.exe"
     runs-on: ${{ matrix.os }}
-    
+
+
     steps:
     - name: Check matrix variables
       run: echo ${{ matrix.os }} ${{ matrix.os.built_file }} ${{ matrix.os.short_name }}
