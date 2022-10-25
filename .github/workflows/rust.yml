@@ -15,11 +15,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Create auto release
+      id: auto_step
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         automatic_release_tag: "latest"
         prerelease: true
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
+    outputs:
+      upload_url: steps.auto_step.outputs.upload_url
 
   uploading_files:
     name: Building and uploading files
