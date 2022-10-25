@@ -13,7 +13,6 @@ env:
 jobs:
   automatic_release:
     name: Automatic Release
-    runs-on: ${{ matrix.config.os }}
     strategy:  
       matrix:
         config:
@@ -26,6 +25,8 @@ jobs:
         - os: windows-latest
         - short_name: win
         - built_file: target/release/rust-render.exe
+    runs-on: ${{ matrix.config.os }}
+
 
     steps:
     - name: Check matrix variables
