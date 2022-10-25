@@ -15,22 +15,22 @@ jobs:
     name: Automatic Release
     strategy:  
       matrix:
-        config:
+        include:
         - os: ubuntu-latest
-        - short_name: "linux"
-        - built_file: "target/release/rust-render"
+          short_name: "linux"
+          built_file: "target/release/rust-render"
         - os: macos-latest
-        - short_name: "mac"
-        - built_file: "target/release/rust-render"
+          short_name: "mac"
+          built_file: "target/release/rust-render"
         - os: windows-latest
-        - short_name: "win"
-        - built_file: "target/release/rust-render.exe"
-    runs-on: ${{ matrix.config.os }}
+          short_name: "win"
+          built_file: "target/release/rust-render.exe"
+    runs-on: ${{ matrix.os }}
 
 
     steps:
     - name: Check matrix variables
-      run: echo ${{ matrix.config.os }} ${{ matrix.config.os.built_file }} ${{ matrix.config.os.short_name }}
+      run: echo ${{ matrix.os }} ${{ matrix.os.built_file }} ${{ matrix.os.short_name }}
     - uses: actions/checkout@v3
     - name: Build
       run: cargo build --release
@@ -51,6 +51,6 @@ jobs:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       with:
         upload_url: ${{ steps.auto_release.outputs.upload_url }}
-        asset_name: rust-render-${{ matrix.config.os.short_name }}
-        asset_path: ${{ matrix.config.os.built_file }}
+        asset_name: rust-render-${{ matrix.os.short_name }}
+        asset_path: ${{ matrix.os.built_file }}
         asset_content_type: application/octet-stream
