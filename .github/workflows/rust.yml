@@ -20,7 +20,7 @@ jobs:
       id: auto_step
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        # automatic_release_tag: "v*"
+        # automatic_release_tag: 
         prerelease: false
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
     outputs:
