@@ -16,17 +16,18 @@ jobs:
   auto_release:
     runs-on: ubuntu-latest
     steps:
-    - name: Bump version and push tag
+    - uses: actions/checkout@v2
+
+    - name: Create an incremental release
       id: tag_step
-      uses: anothrNick/github-tag-action@v1
+      uses: aurestic/incrementarl-create-release@master
+      with:
+        flag_branch: true
+        # message: Bump version
+        prev_tag: 'v'
+        update_odoo_module_version: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        WITH_V: true
-        DEFAULT_BUMP: patch
-        INITIAL_VERSION: 0.1.0
-        #REPO_OWNER: janix
-        PRERELEASE: false
-        VERBOSE: true
 
     - name: Create auto release
       id: auto_step
