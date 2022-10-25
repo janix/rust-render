@@ -40,7 +40,7 @@ jobs:
             built_file: "target/release/rust-render"
         - os:
             name: windows-latest
-            short_name: "win"
+            short_name: "win.exe"
             built_file: "target/release/rust-render.exe"
     runs-on: ${{ matrix.config.os.name }}
 
