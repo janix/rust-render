@@ -25,6 +25,7 @@ jobs:
         DEFAULT_BUMP: patch
         INITIAL_VERSION: 0.1.0
         #REPO_OWNER: janix
+        PRERELEASE: false
 
     - name: Create auto release
       id: auto_step
