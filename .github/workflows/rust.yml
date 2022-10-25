@@ -46,8 +46,6 @@ jobs:
       run: cargo build --release
     - name: Run tests
       run: cargo test --verbose
-    - name: Running automatic release
-      id: auto_release
     - name: Upload release assets
       uses: actions/upload-release-asset@v1
       env:
