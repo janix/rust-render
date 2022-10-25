@@ -43,7 +43,7 @@ jobs:
 
     steps:
     - name: Check matrix variables
-      run: echo ${{ matrix.config.os }} ${{ matrix.config.os.built_file }} ${{ matrix.config.os.short_name }}
+      run: echo ${{ needs.auto_release.outputs.upload_url }}
     - name: Checkout
       uses: actions/checkout@v3
     - name: Build
