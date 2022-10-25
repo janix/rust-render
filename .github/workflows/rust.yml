@@ -11,10 +11,10 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  automatic_release:
+  auto_release:
     runs-on: ubuntu-latest
     steps:
-    - name: Create automtic release
+    - name: Create auto release
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         automatic_release_tag: "latest"
