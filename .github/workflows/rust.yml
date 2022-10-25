@@ -29,7 +29,7 @@ jobs:
       id: auto_step
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        automatic_release_tag: ${{ steps.tag_step.outputs.new_tag }}
+        automatic_release_tag: ${{ steps.tag_step.outputs.tag }}
         prerelease: false
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
     outputs:
